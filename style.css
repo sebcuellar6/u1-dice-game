@@ -1,37 +1,51 @@
 body {
     display: flex;
-    justify-content: center;
-    margin: 20px;
+    margin: 30px;
     flex-direction: column;
     height: 100vh; /* Ensure the body takes up the full height of the viewport */
+    flex-;
 }
 
 header {
-    text-align: center; /* Center the text inside the header */
+ text-align: center;
 }
 
-#outcomeDisplay {
-    margin-top: 0; /* Remove default top margin */
+#names {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 10%;
 }
 
-#title {
-    margin: 0; /* Remove default margins */
-}
-
-#dice1 {
-    height: 100px;
-    width: 100px;
-    border: 4px solid black;
-    margin: auto;
-}
-
-#dice2 {
-    height: 100px;
-    width: 100px;
-    border: 4px solid black;
-    margin: auto;
+#diceContainer {
+    display: flex;
+    justify-content: center; /* Center the dice horizontally */
+    margin-top: 20px;
 }
 
 .dice {
-    margin-top: 20px; /* Add spacing between dice */
+    height: 100px;
+    width: 100px;
+    border: 4px solid black;
+    margin-right: 20px; /* Add spacing between dice */
 }
+
+.dice:last-child {
+    margin-right: 0; /* Remove right margin from the last dice */
+}
+
+.tallyBox {
+    border: 2px solid black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 200px; /* Adjust width as needed */
+    margin: auto; /* Center the tally box horizontally */
+}
+
+.tallyItem {
+    font-weight: bold;
+}
+
+
+
+

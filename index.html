@@ -10,26 +10,44 @@
 <body>
     <header>
         <h1 id="title">JavaScript Dice Game</h1>
-        <h3 id="outcomeDisplay">"" is the winner</h3>
+        <h3 id="outcomeDisplay">Roll the Dice!</h3>
     </header>
-    
-    <div id="name1">
-    <label for="name">Name (4 to 8 characters):</label>
-    
-    <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
+    <div id="names">
+        <div id="name1">
+            <label for="name">Name (4 to 8 characters):</label>
+            
+            <input type="text" id="inputName1" name="name" required minlength="4" maxlength="8" size="10" />
+            <input type="button" id="name1Btn" value="Enter">
+        </div>
+        
+        <div id="name2">
+            <label for="name">Name (4 to 8 characters):</label>
+            <input type="text" id="inputName2" name="name" required minlength="4" maxlength="8" size="10" />
+            <input type="button" id="name2Btn" value="Enter">
+        </div>
+        
+    </div>
+    <div class="tallyBox" id="tallyBox1">
+        <h4 id="first">P1</h4>
+        <span class="tallyItem">Wins: <span id="wins1">0</span></span>
+        <span class="tallyItem">Losses: <span id="losses1">0</span></span>
+    </div>
+    <div class="tallyBox" id="tallyBox2">
+        <h4 id="second">P2</h4>
+        <span class="tallyItem">Wins: <span id="wins2">0</span></span>
+        <span class="tallyItem">Losses: <span id="losses2">0</span></span>
+    </div>
+        <div id="diceContainer">
+        <div class="dice"id="dice1">1</div>
+        <div class="dice" id="dice2"></div>
+        </div>
+        <footer>
+            <div id="rollButton">
+                <input type="button" id="roll" value="ROLL!">
+        </footer>
     </div>
 
-    <div id="name2">
-        <label for="name">Name (4 to 8 characters):</label>
     
-        <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10" />
-    </div>
-    <div id="rollButton">
-        <input type="button" id="roll" value="ROLL!">
-    </div>
-    
-    <div class="dice"id="dice1"></div>
-    <div class="dice" id="dice2"></div>
 
 </body>
 </html>
