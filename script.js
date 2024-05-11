@@ -9,6 +9,10 @@ const input1 = document.querySelector("#inputName1")
 const input2 = document.querySelector("#inputName2")
 const nameBox1 = document.querySelector("#first")
 const nameBox2 = document.querySelector("#second")
+const wins1 = document.querySelector("#wins1")
+const losses1 = document.querySelector("#losses1")
+const wins2 = document.querySelector("#wins2")
+const losses2 = document.querySelector("#losses2")
 //////VARIABLES//////////////
 
 
@@ -26,13 +30,26 @@ function rollDice() {
 
 function checkWinner(outcome1, outcome2) {
   if(outcome1 > outcome2) {
+   currentWins1 = parseInt(wins1.innerText)
+   wins1.innerText = currentWins1 +=1
+    currentLosses2 = parseInt(losses2.innerText)
+    losses2.innerText = currentLosses2 += 1
     outComeDisplay.innerText = `Player 1 rolled ${outcome1} and is the Winner!`
   }else if(outcome1 < outcome2) {
+    currentWins2 = parseInt(wins2.innerText)
+   wins2.innerText = currentWins2 +=1
+   currentLosses1 = parseInt(losses1.innerText)
+    losses1.innerText = currentLosses1 += 1
     outComeDisplay.innerText = `Player 2 rolled ${outcome2} and is the Winner!`
   }else{
     outComeDisplay.innerText = "It's a tie.."
   }
 }
+
+
+
+
+//make a function that adds a win/loss to the tallyboard each roll
 
 ///////EVENT LISTENERS///////
 //assign an event listener that adds a random number to each of the dice
@@ -59,3 +76,5 @@ button1.addEventListener('click', () => {
         nameBox2.innerText = `${name}`
             console.log("working")
         })
+
+
