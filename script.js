@@ -16,7 +16,14 @@ const losses2 = document.querySelector("#losses2")
 const diceImage1 = document.querySelector("#diceImage1")
 const diceImage2 = document.querySelector("#diceImage2")
 let picture = document.querySelector("#picture")
-
+//add a const for the bank input bar
+const bankBar = document.querySelector("#bankAmount")
+//console.log to check it works
+//add a const for enter amount button
+const enterAmountBtn = document.querySelector("#enterAmount")
+//add a const for both players money
+const innerMoney1 = document.querySelector("#inner1")
+const innerMoney2 = document.querySelector("#inner2")
 //////V[ARIABLES//////////////
 const diceImages = [
     "1dice.gif", // side 1
@@ -98,5 +105,18 @@ button1.addEventListener('click', () => {
         nameBox2.innerText = `${name}`
             console.log("working")
         })
+
+//add an event listener to the bank that adds the money amount entered in the input bar to each of the players
+
+enterAmountBtn.addEventListener('click', () => {
+  let amountOfMoney = bankBar.value
+  if(amountOfMoney > 0) {
+    innerMoney2.innerText = amountOfMoney
+    innerMoney1.innerText = amountOfMoney
+  }
+}
+
+)
+
 
         
