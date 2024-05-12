@@ -20,11 +20,11 @@ let picture = document.querySelector("#picture")
 //////V[ARIABLES//////////////
 const diceImages = [
     "1dice.gif", // side 1
-    "#2sidedice.jpeg", // side 2
-    "#3sidedice.gif", // side 3
-    "#4sidedice.gif", // side 4
-    "#5sidedice.jpeg", // side 5
-    "#6sidedice.gif"  // side 6
+    "2sidedice.jpeg", // side 2
+    "3sidedice.gif", // side 3
+    "4sidedice.gif", // side 4
+    "5sidedice.jpeg", // side 5
+    "6sidedice.gif"  // side 6
 ]
 
 
@@ -76,7 +76,7 @@ rollButton.addEventListener('click', () => {
    let dice2Outcome = rollDice()
    let dice1Outcome = rollDice()
    dice1.src = diceImages[dice1Outcome - 1]
-   dice2.innerText = `${dice2Outcome}`
+   dice2.src = diceImages[dice2Outcome - 1]
    
    diceImage1.src = diceImages[dice1Outcome - 1]  // dice1Outcome - 1 because array indices start from 0
    diceImage2.src = diceImages[dice2Outcome - 1]
