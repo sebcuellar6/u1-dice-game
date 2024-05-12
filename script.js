@@ -13,7 +13,19 @@ const wins1 = document.querySelector("#wins1")
 const losses1 = document.querySelector("#losses1")
 const wins2 = document.querySelector("#wins2")
 const losses2 = document.querySelector("#losses2")
-//////VARIABLES//////////////
+const diceImage1 = document.querySelector("#diceImage1")
+const diceImage2 = document.querySelector("#diceImage2")
+let picture = document.querySelector("#picture")
+
+//////V[ARIABLES//////////////
+const diceImages = [
+    "/Users/sebastiancuellar/Downloads/1dice.gif", // side 1
+    "/Users/sebastiancuellar/Downloads/#2sidedice.gif", // side 2
+    "/Users/sebastiancuellar/Downloads/#3sidedice.gif", // side 3
+    "/Users/sebastiancuellar/Downloads/#4sidedice.gif", // side 4
+    "/Users/sebastiancuellar/Downloads/#5sidedice.gif", // side 5
+    "/Users/sebastiancuellar/Downloads/#6sidedice.gif"  // side 6
+]
 
 
 
@@ -22,8 +34,14 @@ const losses2 = document.querySelector("#losses2")
 
 //function that creates a random number between 1-6
 
-function rollDice() {
+/*function rollDice() {
     return Math.floor(Math.random() * 6) +1
+}
+*/
+
+function rollDice() {
+num = Math.floor(Math.random() * 6) + 1;
+return num
 }
 
 //create a function that checks whose number is higher
@@ -59,6 +77,10 @@ rollButton.addEventListener('click', () => {
    let dice1Outcome = rollDice()
    dice1.innerText = `${dice1Outcome}`
    dice2.innerText = `${dice2Outcome}`
+   
+   diceImage1.src = diceImages[dice1Outcome - 1]  // dice1Outcome - 1 because array indices start from 0
+   diceImage2.src = diceImages[dice2Outcome - 1]
+
 checkWinner(dice1Outcome, dice2Outcome)
     
 })
@@ -77,4 +99,4 @@ button1.addEventListener('click', () => {
             console.log("working")
         })
 
-
+        
