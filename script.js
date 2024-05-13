@@ -28,7 +28,12 @@ const playerBankDiv = document.querySelector("#playerBankDiv")
 const bettingBox = document.querySelector("#bettingBox")
 const highNumber = document.querySelector("#highNumber")
 const passLine = document.querySelector("#passLine")
+//make consts for bet buttons
+const bet10 = document.querySelector("#bet10")
+const bet20 = document.querySelector("#bet20")
+const bet30 = document.querySelector("#bet30")
 //////V[ARIABLES//////////////
+
 const diceImages = [
     "1dice.gif", // side 1
     "2sidedice.jpeg", // side 2
@@ -38,31 +43,15 @@ const diceImages = [
     "6sidedice.gif"  // side 6
 ]
 
-
-
-
 //////FUNCTIONS//////////////
 
 //function that creates a random number between 1-6
-
-/*function rollDice() {
-    return Math.floor(Math.random() * 6) +1
-}
-*/
-
-
-
-
-
 function rollDice() {
 num = Math.floor(Math.random() * 6) + 1;
 return num
 }
-
 //create a function that checks whose number is higher
-
-
-
+//make this function add wins and losses to the tallyBox
 function checkWinner(outcome1, outcome2) {
   if(outcome1 > outcome2) {
    currentWins1 = parseInt(wins1.innerText)
@@ -80,17 +69,13 @@ function checkWinner(outcome1, outcome2) {
     outComeDisplay.innerText = "It's a tie.."
   }
 }
-
-
-
-
-//make a function that adds a win/loss to the tallyboard each roll
+//make a new checkwinner function for the new rule set:
 
 ///////EVENT LISTENERS///////
-//assign an event listener that adds a random number to each of the dice
+
+//create an event listener that when clicked changes the rules of the game to HighNumber(original rules)
 
 
-highNumber.addEventListener('click', () => {
 
 rollButton.addEventListener('click', () => {
    let dice2Outcome = rollDice()
@@ -121,8 +106,6 @@ button1.addEventListener('click', () => {
           name2.style.display = "none"
         })
 
-//add an event listener to the bank that adds the money amount entered in the input bar to each of the players
-
 bettingBox.style.display = "none"
 
 enterAmountBtn.addEventListener('click', () => {
@@ -138,11 +121,32 @@ enterAmountBtn.addEventListener('click', () => {
 }
 
 )
-})
-//create an event listener that when clicked changes the rules of the game
+//add an event listener to the bank that adds the money amount entered in the input bar to each of the players
+//subtract 10 from each players bank and put it into the "pot"
+
+let clickCount = 0
+
+bet10.addEventListener('click', () => {
+  clickCount++
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  
+  if(currentMoney1 >= 10 && currentMoney2 >= 10) {
+    innerMoney1.innerText = currentMoney1 - 10
+    innerMoney2.innerText = currentMoney2 - 10
+    let currentPot = parseInt(innerPot.innerText)
+    innerPot.innerText = currentPot + 20
+  }else{
+    alert("Not enough money to bet $10 for both players!")
+  }
+  }
+)
+
+
 //RULES:
 //You win if you roll a 7 or 11 on first roll
 //You lose if you roll a 2, 3, or 12
 //Any other number becomes the "point" and you must roll that number again before rolling a 7
 
 //when i make the event listener i can make a value change on the html so that i can use it in an IF statement and determine which rules to follow
+//first decide what code i will need to use in both and either leave it outside the highnumber event listener or copy and
