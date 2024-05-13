@@ -32,16 +32,19 @@ const passLine = document.querySelector("#passLine")
 const bet10 = document.querySelector("#bet10")
 const bet20 = document.querySelector("#bet20")
 const bet30 = document.querySelector("#bet30")
-//////V[ARIABLES//////////////
-
+//add a const for the inner Pot value
+const innerPot = document.querySelector("#innerPot")
 const diceImages = [
-    "1dice.gif", // side 1
-    "2sidedice.jpeg", // side 2
-    "3sidedice.gif", // side 3
-    "4sidedice.gif", // side 4
-    "5sidedice.jpeg", // side 5
-    "6sidedice.gif"  // side 6
+  "1dice.gif", // side 1
+  "2sidedice.jpeg", // side 2
+  "3sidedice.gif", // side 3
+  "4sidedice.gif", // side 4
+  "5sidedice.jpeg", // side 5
+  "6sidedice.gif"  // side 6
 ]
+//////V[ARIABLES//////////////
+let rollOccurred = false
+
 
 //////FUNCTIONS//////////////
 
@@ -69,16 +72,14 @@ function checkWinner(outcome1, outcome2) {
     outComeDisplay.innerText = "It's a tie.."
   }
 }
-//make a new checkwinner function for the new rule set:
+
 
 ///////EVENT LISTENERS///////
 
-//create an event listener that when clicked changes the rules of the game to HighNumber(original rules)
-
-
-
 rollButton.addEventListener('click', () => {
-   let dice2Outcome = rollDice()
+   if(!rollOccurred) {
+  
+  let dice2Outcome = rollDice()
    let dice1Outcome = rollDice()
    dice1.src = diceImages[dice1Outcome - 1]
    dice2.src = diceImages[dice2Outcome - 1]
@@ -87,7 +88,22 @@ rollButton.addEventListener('click', () => {
    diceImage2.src = diceImages[dice2Outcome - 1]
 
 checkWinner(dice1Outcome, dice2Outcome)
-    
+let currentPot = parseInt(innerPot.innerText)
+if(currentPot == 20) {
+  awardPlayer10(dice1Outcome, dice2Outcome)
+}else if(currentPot == 40) {
+  awardPlayer20(dice1Outcome, dice2Outcome)
+}else if(currentPot == 60){
+  awardPlayer30(dice1Outcome, dice2Outcome)
+}else{
+  alert("error")
+}
+bet10.disabled = false
+bet20.disabled = false
+bet30.disabled = false
+
+rollOccurred = true
+}
 })
 
 //Make two buttons and add an event listener that takes the text from the input bars and assigns the name entered to the Player 1, and Player 2
@@ -106,7 +122,10 @@ button1.addEventListener('click', () => {
           name2.style.display = "none"
         })
 
+//make the betting box display only after starting cash amount has been entered
+
 bettingBox.style.display = "none"
+//add an event listener to the bank that adds the money amount entered in the input bar to each of the players
 
 enterAmountBtn.addEventListener('click', () => {
   let amountOfMoney = bankBar.value
@@ -119,9 +138,8 @@ enterAmountBtn.addEventListener('click', () => {
 
   }
 }
-
 )
-//add an event listener to the bank that adds the money amount entered in the input bar to each of the players
+
 //subtract 10 from each players bank and put it into the "pot"
 
 let clickCount = 0
@@ -136,13 +154,114 @@ bet10.addEventListener('click', () => {
     innerMoney2.innerText = currentMoney2 - 10
     let currentPot = parseInt(innerPot.innerText)
     innerPot.innerText = currentPot + 20
+    bet10.disabled = true
+      bet20.disabled = true
+      bet30.disabled = true
   }else{
     alert("Not enough money to bet $10 for both players!")
   }
   }
 )
 
+//add event listeners for $20 and $30
 
+bet20.addEventListener('click', () => {
+  clickCount++
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+
+  if(currentMoney1 >= 20 && currentMoney2 >= 20) {
+    innerMoney1.innerText = currentMoney1 - 20
+    innerMoney2.innerText = currentMoney2 - 20
+    innerPot.innerText = currentPot + 40
+    bet10.disabled = true
+      bet20.disabled = true
+      bet30.disabled = true
+  }else{
+    alert("Not enough money to bet $20 for both players!")
+  }
+  }
+)
+
+//make a funtion to award whichever player that wins the money in the pot
+
+function awardPlayer10(outcome1, outcome2) {
+
+  let awardMoney = parseInt(innerPot.innerText)
+
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+
+  if(outcome1 > outcome2 && currentPot > 0) {
+    innerMoney1.innerText = currentMoney1 + 20
+    innerPot.innerText = currentPot - 20
+  }else if(outcome1 < outcome2 && currentPot > 0) {
+    innerMoney2.innerText = currentMoney2 +20
+    innerPot.innerText = currentPot - 20
+  }else{
+    console.log("working")
+  }
+    
+  }
+//recreate this function for 20 and 30
+
+function awardPlayer20(outcome1, outcome2) {
+
+  let awardMoney = parseInt(innerPot.innerText)
+
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+
+  if(outcome1 > outcome2 && currentPot > 0) {
+    innerMoney1.innerText = currentMoney1 + 40
+    innerPot.innerText = currentPot - 40
+  }else if(outcome1 < outcome2 && currentPot > 0) {
+    innerMoney2.innerText = currentMoney2 +40
+    innerPot.innerText = currentPot - 40
+  }else{
+    console.log("working")
+  }}
+
+
+  bet30.addEventListener('click', () => {
+    clickCount++
+    let currentMoney1 = parseInt(innerMoney1.innerText)
+    let currentMoney2 = parseInt(innerMoney2.innerText)
+    let currentPot = parseInt(innerPot.innerText)
+  
+    if(currentMoney1 >= 30 && currentMoney2 >= 30) {
+      innerMoney1.innerText = currentMoney1 - 30
+      innerMoney2.innerText = currentMoney2 - 30
+      innerPot.innerText = currentPot + 60
+      bet10.disabled = true
+      bet20.disabled = true
+      bet30.disabled = true
+    }else{
+      alert("Not enough money to bet $30 for both players!")
+    }
+    }
+  )
+
+function awardPlayer30(outcome1, outcome2) {
+
+  let awardMoney = parseInt(innerPot.innerText)
+
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+
+  if(outcome1 > outcome2 && currentPot > 0) {
+    innerMoney1.innerText = currentMoney1 + 60
+    innerPot.innerText = currentPot - 60
+  }else if(outcome1 < outcome2 && currentPot > 0) {
+    innerMoney2.innerText = currentMoney2 +60
+    innerPot.innerText = currentPot - 60
+  }else{
+    console.log("working")
+  }}
 //RULES:
 //You win if you roll a 7 or 11 on first roll
 //You lose if you roll a 2, 3, or 12
