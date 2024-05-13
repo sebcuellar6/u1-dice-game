@@ -24,6 +24,10 @@ const enterAmountBtn = document.querySelector("#enterAmount")
 //add a const for both players money
 const innerMoney1 = document.querySelector("#inner1")
 const innerMoney2 = document.querySelector("#inner2")
+const playerBankDiv = document.querySelector("#playerBankDiv")
+const bettingBox = document.querySelector("#bettingBox")
+const highNumber = document.querySelector("#highNumber")
+const passLine = document.querySelector("#passLine")
 //////V[ARIABLES//////////////
 const diceImages = [
     "1dice.gif", // side 1
@@ -46,12 +50,18 @@ const diceImages = [
 }
 */
 
+
+
+
+
 function rollDice() {
 num = Math.floor(Math.random() * 6) + 1;
 return num
 }
 
 //create a function that checks whose number is higher
+
+
 
 function checkWinner(outcome1, outcome2) {
   if(outcome1 > outcome2) {
@@ -79,6 +89,9 @@ function checkWinner(outcome1, outcome2) {
 ///////EVENT LISTENERS///////
 //assign an event listener that adds a random number to each of the dice
 
+
+highNumber.addEventListener('click', () => {
+
 rollButton.addEventListener('click', () => {
    let dice2Outcome = rollDice()
    let dice1Outcome = rollDice()
@@ -98,25 +111,38 @@ button1.addEventListener('click', () => {
     let name = input1.value
     nameBox1.innerText = `${name}`
         console.log("working")
+      name1.style.display = "none"
     })
 
     button2.addEventListener('click', () => {
         let name = input2.value
         nameBox2.innerText = `${name}`
             console.log("working")
+          name2.style.display = "none"
         })
 
 //add an event listener to the bank that adds the money amount entered in the input bar to each of the players
 
+bettingBox.style.display = "none"
+
 enterAmountBtn.addEventListener('click', () => {
   let amountOfMoney = bankBar.value
+  
   if(amountOfMoney > 0) {
     innerMoney2.innerText = amountOfMoney
     innerMoney1.innerText = amountOfMoney
+    playerBankDiv.style.display = "none"
+    bettingBox.style.display = "block"
+
   }
 }
 
 )
+})
+//create an event listener that when clicked changes the rules of the game
+//RULES:
+//You win if you roll a 7 or 11 on first roll
+//You lose if you roll a 2, 3, or 12
+//Any other number becomes the "point" and you must roll that number again before rolling a 7
 
-
-        
+//when i make the event listener i can make a value change on the html so that i can use it in an IF statement and determine which rules to follow
