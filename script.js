@@ -19,7 +19,7 @@ let picture = document.querySelector("#picture")
 //add a const for the bank input bar
 const bankBar = document.querySelector("#bankAmount")
 //console.log to check it works
-//add a const for enter amount buttone
+//add a const for enter amount button
 const enterAmountBtn = document.querySelector("#enterAmount")
 //add a const for both players money
 const innerMoney1 = document.querySelector("#inner1")
@@ -42,8 +42,6 @@ const diceImages = [
   "5sidedice.jpeg", // side 5
   "6sidedice.gif"  // side 6
 ]
-const nav = document.querySelector("#nav")
-const roll = document.querySelector("#roll")
 //////V[ARIABLES//////////////
 let rollOccurred = false
 
@@ -97,19 +95,19 @@ if(currentPot == 20) {
   awardPlayer20(dice1Outcome, dice2Outcome)
 }else if(currentPot == 60){
   awardPlayer30(dice1Outcome, dice2Outcome)
-}else if(currentPot == 0){
-  checkWinner()
+}else{
+  alert("error")
 }
 bet10.disabled = false
 bet20.disabled = false
 bet30.disabled = false
 
-
+rollOccurred = true
 }
 })
 
 //Make two buttons and add an event listener that takes the text from the input bars and assigns the name entered to the Player 1, and Player 2
-nav.style.display = "none"
+
 button1.addEventListener('click', () => {
     let name = input1.value
     nameBox1.innerText = `${name}`
@@ -122,7 +120,6 @@ button1.addEventListener('click', () => {
         nameBox2.innerText = `${name}`
             console.log("working")
           name2.style.display = "none"
-          //nav.style.display = "inline"
         })
 
 //make the betting box display only after starting cash amount has been entered
@@ -145,7 +142,7 @@ enterAmountBtn.addEventListener('click', () => {
 
 //subtract 10 from each players bank and put it into the "pot"
 
-
+let clickCount = 0
 
 bet10.addEventListener('click', () => {
   clickCount++
