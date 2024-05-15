@@ -12,7 +12,10 @@
         <h1 id="title">JavaScript Dice Game</h1>
         <h3 id="outcomeDisplay">Roll the Dice!</h3>
     </header>
-    <div id="names">
+    <div id="pointDisplay">
+        <h3>Point:</h3>
+        <p id="point"></p>
+    </div>
         <div id="name1">
             <label for="name">Name:</label>
             
@@ -28,11 +31,11 @@
 
         
         
-    </div>
+    
 
-    <nav>
-        <h3 id="highNumber">High Number</h3>
-        <h3 id="passLine">Pass Line</h3>
+    <nav id="nav">
+        <button id="highNumber">High Number</button>
+        <button id="passLine">Pass Line</button>
     </nav>
 
     <div class="tallyBox" id="tallyBox1">
@@ -48,7 +51,7 @@
             <input type="number" id="bankAmount" min="10" step="10">
             <button id="enterAmount">Enter Amount</button>
 </div>
-<div id="bettingBox">
+<div id="bettingBox1">
     <h3 id="betTitle">Betting</h3>
     <label for="betAmount">Bet Amount</label>
             <button id="bet10">$10</button>
@@ -56,7 +59,17 @@
             <button id="bet30">$30</button>
             <span id="betPot">Pot:</span>
             <span id="innerPot">0</span>
-    
+            
+</div>
+
+<div id="bettingBox2">
+<h3 id="betTitle2">Bet On Craps Roll</h3>
+<label for="crapsBet">Place a Bet</label>
+<input type="number" id="crapsBet" min="1" step="1">
+<button id="for">FOR</button>
+            <button id="against">AGAINST</button>
+
+
 </div>
     <div class="tallyBox" id="tallyBox2">
         <h4 id="second">P2</h4>
@@ -65,14 +78,14 @@
         <span class="tallyItem">Losses: <span id="losses2">0</span>
         
     </div>
-        <div id="diceContainer">
+        
         <div class="dice" id="dice1">
             <img id="diceImage1">
         </div>
         <div class="dice" id="dice2">
             <img id="diceImage2">
         </div>
-        </div>
+        
         <footer>
             <div id="rollButton">
                 <input type="button" id="roll" value="ROLL!">

@@ -25,7 +25,7 @@ const enterAmountBtn = document.querySelector("#enterAmount")
 const innerMoney1 = document.querySelector("#inner1")
 const innerMoney2 = document.querySelector("#inner2")
 const playerBankDiv = document.querySelector("#playerBankDiv")
-const bettingBox = document.querySelector("#bettingBox")
+const bettingBox = document.querySelector("#bettingBox1")
 const highNumber = document.querySelector("#highNumber")
 const passLine = document.querySelector("#passLine")
 //make consts for bet buttons
@@ -34,6 +34,7 @@ const bet20 = document.querySelector("#bet20")
 const bet30 = document.querySelector("#bet30")
 //add a const for the inner Pot value
 const innerPot = document.querySelector("#innerPot")
+const betPot = document.querySelector("#betPot")
 const diceImages = [
   "1dice.gif", // side 1
   "2sidedice.jpeg", // side 2
@@ -42,11 +43,18 @@ const diceImages = [
   "5sidedice.jpeg", // side 5
   "6sidedice.gif"  // side 6
 ]
-//////V[ARIABLES//////////////
+const crapsBetInput = document.querySelector("#crapsBet")
+const forBet = document.querySelector("#for")
+const againstBet = document.querySelector("#against")
+const bettingBox2 = document.querySelector("#bettingBox2")
+//////////////////////////V[ARIABLES////////////////////////////
+////////////////////////////////////////////////////////////////
+
 let rollOccurred = false
-
-
-//////FUNCTIONS//////////////
+bettingBox.style.display = "none"
+let clickCount = 0
+///////////////////////FUNCTIONS////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 //function that creates a random number between 1-6
 function rollDice() {
@@ -74,17 +82,78 @@ function checkWinner(outcome1, outcome2) {
 }
 
 
+
+
+
+
+
+function awardPlayer10(outcome1, outcome2) {
+
+  let awardMoney = parseInt(innerPot.innerText)
+
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+
+  if(outcome1 > outcome2 && currentPot > 0) {
+    innerMoney1.innerText = currentMoney1 + 20
+    innerPot.innerText = currentPot - 20
+  }else if(outcome1 < outcome2 && currentPot > 0) {
+    innerMoney2.innerText = currentMoney2 +20
+    innerPot.innerText = currentPot - 20
+  }else{
+    console.log("working")
+  }
+    
+  }
+
+  function awardPlayer20(outcome1, outcome2) {
+
+    let awardMoney = parseInt(innerPot.innerText)
+  
+    let currentMoney1 = parseInt(innerMoney1.innerText)
+    let currentMoney2 = parseInt(innerMoney2.innerText)
+    let currentPot = parseInt(innerPot.innerText)
+  
+    if(outcome1 > outcome2 && currentPot > 0) {
+      innerMoney1.innerText = currentMoney1 + 40
+      innerPot.innerText = currentPot - 40
+    }else if(outcome1 < outcome2 && currentPot > 0) {
+      innerMoney2.innerText = currentMoney2 +40
+      innerPot.innerText = currentPot - 40
+    }else{
+      console.log("working")
+    }}
+
+    function awardPlayer30(outcome1, outcome2) {
+
+      let awardMoney = parseInt(innerPot.innerText)
+    
+      let currentMoney1 = parseInt(innerMoney1.innerText)
+      let currentMoney2 = parseInt(innerMoney2.innerText)
+      let currentPot = parseInt(innerPot.innerText)
+    
+      if(outcome1 > outcome2 && currentPot > 0) {
+        innerMoney1.innerText = currentMoney1 + 60
+        innerPot.innerText = currentPot - 60
+      }else if(outcome1 < outcome2 && currentPot > 0) {
+        innerMoney2.innerText = currentMoney2 +60
+        innerPot.innerText = currentPot - 60
+      }else{
+        console.log("working")
+      }}
+
 ///////EVENT LISTENERS///////
 
 rollButton.addEventListener('click', () => {
-   if(!rollOccurred) {
+   if(currentMode === Modes.HIGH_NUMBER) {
   
   let dice2Outcome = rollDice()
    let dice1Outcome = rollDice()
    dice1.src = diceImages[dice1Outcome - 1]
    dice2.src = diceImages[dice2Outcome - 1]
    
-   diceImage1.src = diceImages[dice1Outcome - 1]  // dice1Outcome - 1 because array indices start from 0
+   diceImage1.src = diceImages[dice1Outcome - 1]  
    diceImage2.src = diceImages[dice2Outcome - 1]
 
 checkWinner(dice1Outcome, dice2Outcome)
@@ -103,8 +172,23 @@ bet20.disabled = false
 bet30.disabled = false
 
 rollOccurred = true
+}else if (currentMode === Modes.PASS_LINE) {
+  // Logic for Pass Line mode
+  let dice1Outcome = rollDice();
+  let dice2Outcome = rollDice();
+  dice1.src = diceImages[dice1Outcome - 1]
+   dice2.src = diceImages[dice2Outcome - 1]
+   
+   diceImage1.src = diceImages[dice1Outcome - 1]  
+   diceImage2.src = diceImages[dice2Outcome - 1]
+  // Check if it's the first roll or subsequent rolls
+  if (!pointEstablished) {
+      handleFirstRoll(dice1Outcome, dice2Outcome);
+  } else {
+      handleSubsequentRoll(dice1Outcome, dice2Outcome);
+  }
 }
-})
+});
 
 //Make two buttons and add an event listener that takes the text from the input bars and assigns the name entered to the Player 1, and Player 2
 
@@ -124,7 +208,7 @@ button1.addEventListener('click', () => {
 
 //make the betting box display only after starting cash amount has been entered
 
-bettingBox.style.display = "none"
+
 //add an event listener to the bank that adds the money amount entered in the input bar to each of the players
 
 enterAmountBtn.addEventListener('click', () => {
@@ -141,8 +225,8 @@ enterAmountBtn.addEventListener('click', () => {
 )
 
 //subtract 10 from each players bank and put it into the "pot"
+//make a funtion to award whichever player that wins the money in the pot
 
-let clickCount = 0
 
 bet10.addEventListener('click', () => {
   clickCount++
@@ -157,6 +241,7 @@ bet10.addEventListener('click', () => {
     bet10.disabled = true
       bet20.disabled = true
       bet30.disabled = true
+      rollOccurred = false
   }else{
     alert("Not enough money to bet $10 for both players!")
   }
@@ -178,52 +263,19 @@ bet20.addEventListener('click', () => {
     bet10.disabled = true
       bet20.disabled = true
       bet30.disabled = true
+      rollOccurred = false
   }else{
     alert("Not enough money to bet $20 for both players!")
   }
   }
 )
 
-//make a funtion to award whichever player that wins the money in the pot
 
-function awardPlayer10(outcome1, outcome2) {
 
-  let awardMoney = parseInt(innerPot.innerText)
 
-  let currentMoney1 = parseInt(innerMoney1.innerText)
-  let currentMoney2 = parseInt(innerMoney2.innerText)
-  let currentPot = parseInt(innerPot.innerText)
-
-  if(outcome1 > outcome2 && currentPot > 0) {
-    innerMoney1.innerText = currentMoney1 + 20
-    innerPot.innerText = currentPot - 20
-  }else if(outcome1 < outcome2 && currentPot > 0) {
-    innerMoney2.innerText = currentMoney2 +20
-    innerPot.innerText = currentPot - 20
-  }else{
-    console.log("working")
-  }
-    
-  }
 //recreate this function for 20 and 30
 
-function awardPlayer20(outcome1, outcome2) {
 
-  let awardMoney = parseInt(innerPot.innerText)
-
-  let currentMoney1 = parseInt(innerMoney1.innerText)
-  let currentMoney2 = parseInt(innerMoney2.innerText)
-  let currentPot = parseInt(innerPot.innerText)
-
-  if(outcome1 > outcome2 && currentPot > 0) {
-    innerMoney1.innerText = currentMoney1 + 40
-    innerPot.innerText = currentPot - 40
-  }else if(outcome1 < outcome2 && currentPot > 0) {
-    innerMoney2.innerText = currentMoney2 +40
-    innerPot.innerText = currentPot - 40
-  }else{
-    console.log("working")
-  }}
 
 
   bet30.addEventListener('click', () => {
@@ -239,33 +291,104 @@ function awardPlayer20(outcome1, outcome2) {
       bet10.disabled = true
       bet20.disabled = true
       bet30.disabled = true
+      rollOccurred = false
     }else{
       alert("Not enough money to bet $30 for both players!")
     }
     }
   )
 
-function awardPlayer30(outcome1, outcome2) {
 
-  let awardMoney = parseInt(innerPot.innerText)
+//make an array of the two different modes
 
-  let currentMoney1 = parseInt(innerMoney1.innerText)
-  let currentMoney2 = parseInt(innerMoney2.innerText)
-  let currentPot = parseInt(innerPot.innerText)
+const Modes = {
+  HIGH_NUMBER: "high_number",
+  PASS_LINE: "pass_line"
+}
 
-  if(outcome1 > outcome2 && currentPot > 0) {
-    innerMoney1.innerText = currentMoney1 + 60
-    innerPot.innerText = currentPot - 60
-  }else if(outcome1 < outcome2 && currentPot > 0) {
-    innerMoney2.innerText = currentMoney2 +60
-    innerPot.innerText = currentPot - 60
+currentMode =  Modes.HIGH_NUMBER
+
+//make a function that will toggle between the two different modes
+
+
+function toggleModePassLine() {
+  if(currentMode === Modes.HIGH_NUMBER) {
+    currentMode = Modes.PASS_LINE
+bettingBox.style.display = "none"
+bettingBox2.style.display = "inline"
+wins1.style.display = "none"
+wins2.style.display = "none"
+losses1.style.display = "none"
+losses2.style.display = "none"    
+    console.log(currentMode)
   }else{
-    console.log("working")
-  }}
-//RULES:
-//You win if you roll a 7 or 11 on first roll
-//You lose if you roll a 2, 3, or 12
-//Any other number becomes the "point" and you must roll that number again before rolling a 7
+    currentMode = Modes.PASS_LINE
+    console.log(currentMode)
 
-//when i make the event listener i can make a value change on the html so that i can use it in an IF statement and determine which rules to follow
-//first decide what code i will need to use in both and either leave it outside the highnumber event listener or copy and
+
+  }
+}
+function toggleModeHighNumber() {
+  if(currentMode === Modes.PASS_LINE) {
+currentMode = Modes.HIGH_NUMBER
+let turn = null
+bettingBox.style.display = "inline"
+bettingBox2.style.display = "block"
+
+
+console.log(currentMode)
+  }else{
+    currentMode = Modes.HIGH_NUMBER
+    console.log(currentMode)
+
+
+  }
+}
+
+
+
+
+//add event listeners that will act on the toggleMode function
+
+passLine.addEventListener('click', toggleModePassLine)
+highNumber.addEventListener('click', toggleModeHighNumber)
+
+let pointEstablished = false;
+let point = null;
+
+function handleFirstRoll(outcome1, outcome2) {
+    let sum = outcome1 + outcome2;
+    if (sum === 7 || sum === 11) {
+        // Win
+        outComeDisplay.innerText = "Winning First Roll!";
+    } else if (sum === 2 || sum === 3 || sum === 12) {
+        // Lose
+        outComeDisplay.innerText = "Losing First Roll";
+    } else {
+        // Establish point
+        pointEstablished = true;
+        point = sum;
+        outComeDisplay.innerText = `Point established: ${point}`;
+    }
+}
+
+function handleSubsequentRoll(outcome1, outcome2) {
+  let sum = outcome1 + outcome2;
+  if (sum === point) {
+      // Win
+      outComeDisplay.innerText = "You Rolled the Point! Winning Roll!";
+      resetPoint();
+  } else if (sum === 7) {
+      // Lose
+      outComeDisplay.innerText = "Losing Roll";
+      resetPoint();
+  } else {
+      // Continue rolling
+      outComeDisplay.innerText = `Roll again to hit ${point}`;
+  }
+}
+
+function resetPoint() {
+  pointEstablished = false;
+  point = null;
+}
