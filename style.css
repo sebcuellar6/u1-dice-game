@@ -73,17 +73,11 @@ footer {
 }
 
 #bettingBox1 {
-    grid-row: 2 / 3;
+    grid-row: 3 / 4;
     grid-column: 3 / 5;
 }
 
 #bettingBox2 {
     grid-row: 3 / 4;
     grid-column: 3 / 5;
-}
-
-#rickRoll {
-    width: 100px;
-    grid-row: 6 / 7;
-    grid-column: -4;
 }
