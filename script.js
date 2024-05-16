@@ -44,30 +44,25 @@ const diceImages = [
   "6sidedice.gif"  // side 6
 ]
 const crapsBetInput = document.querySelector("#crapsBet")
-const forBet1 = document.querySelector("#for1")
-const againstBet1 = document.querySelector("#against1")
-const forBet2 = document.querySelector("#for2")
-const againstBet2 = document.querySelector("#against2")
-
+const forBet = document.querySelector("#for")
+const againstBet = document.querySelector("#against")
+const bettingBox2 = document.querySelector("#bettingBox2")
 const wins3 = document.querySelector("#wins3")
 const losses3 = document.querySelector("#losses3")
 const wins4 = document.querySelector("#wins4")
 const losses4 = document.querySelector("#losses4")
-const pot2 = document.querySelector("#pot2")
-const innerPot2 = document.querySelector("#innerPot2")
 //////////////////////////V[ARIABLES////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 let rollOccurred = false
 bettingBox.style.display = "none"
 let clickCount = 0
-let currentPlayer = 1
 ///////////////////////FUNCTIONS////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 //function that creates a random number between 1-6
 function rollDice() {
-num = Math.floor(Math.random() * 6) + 1
+num = Math.floor(Math.random() * 6) + 1;
 return num
 }
 //create a function that checks whose number is higher
@@ -182,41 +177,22 @@ bet30.disabled = false
 
 rollOccurred = true
 }else if (currentMode === Modes.PASS_LINE) {
-  if(currentPlayer == 1){
-  let dice1Outcome = rollDice()
-  let dice2Outcome = rollDice()
+  // Logic for Pass Line mode
+  let dice1Outcome = rollDice();
+  let dice2Outcome = rollDice();
   dice1.src = diceImages[dice1Outcome - 1]
    dice2.src = diceImages[dice2Outcome - 1]
    
    diceImage1.src = diceImages[dice1Outcome - 1]  
    diceImage2.src = diceImages[dice2Outcome - 1]
-   console.log(currentPlayer)
   // Check if it's the first roll or subsequent rolls
   if (!pointEstablished) {
-      handleFirstRoll(dice1Outcome, dice2Outcome)
+      handleFirstRoll(dice1Outcome, dice2Outcome);
   } else {
-      handleSubsequentRoll(dice1Outcome, dice2Outcome)
-  }
-  currentPlayer = 2
-  } else if (currentPlayer == 2) {
-    let dice1Outcome = rollDice()
-  let dice2Outcome = rollDice()
-  dice1.src = diceImages[dice1Outcome - 1]
-   dice2.src = diceImages[dice2Outcome - 1]
-   
-   diceImage1.src = diceImages[dice1Outcome - 1]  
-   diceImage2.src = diceImages[dice2Outcome - 1]
-   console.log(currentPlayer)
-  // Check if it's the first roll or subsequent rolls
-  if (!pointEstablished) {
-      handleFirstRoll(dice1Outcome, dice2Outcome)
-  } else {
-      handleSubsequentRoll(dice1Outcome, dice2Outcome)
-  }
-  currentPlayer = 2
+      handleSubsequentRoll(dice1Outcome, dice2Outcome);
   }
 }
-})
+});
 
 //Make two buttons and add an event listener that takes the text from the input bars and assigns the name entered to the Player 1, and Player 2
 
@@ -343,7 +319,7 @@ function toggleModePassLine() {
   if(currentMode === Modes.HIGH_NUMBER) {
     currentMode = Modes.PASS_LINE
 bettingBox.style.display = "none"
-
+bettingBox2.style.display = "inline"
 wins3.style.display = "none"
 wins4.style.display = "none"
 losses3.style.display = "none"
@@ -361,7 +337,7 @@ function toggleModeHighNumber() {
 currentMode = Modes.HIGH_NUMBER
 let turn = null
 bettingBox.style.display = "inline"
-
+bettingBox2.style.display = "block"
 
 
 console.log(currentMode)
@@ -381,48 +357,42 @@ console.log(currentMode)
 passLine.addEventListener('click', toggleModePassLine)
 highNumber.addEventListener('click', toggleModeHighNumber)
 
-let pointEstablished = false
-let point = null
+let pointEstablished = false;
+let point = null;
 
 function handleFirstRoll(outcome1, outcome2) {
-    let sum = outcome1 + outcome2
+    let sum = outcome1 + outcome2;
     if (sum === 7 || sum === 11) {
         // Win
-        outComeDisplay.innerText = "Winning First Roll!"
+        outComeDisplay.innerText = "Winning First Roll!";
     } else if (sum === 2 || sum === 3 || sum === 12) {
         // Lose
-        outComeDisplay.innerText = "Losing First Roll"
+        outComeDisplay.innerText = "Losing First Roll";
     } else {
         // Establish point
-        pointEstablished = true
-        point = sum
-        outComeDisplay.innerText = `Point established: ${point}`
+        pointEstablished = true;
+        point = sum;
+        outComeDisplay.innerText = `Point established: ${point}`;
     }
 }
 
 function handleSubsequentRoll(outcome1, outcome2) {
-  let sum = outcome1 + outcome2
+  let sum = outcome1 + outcome2;
   if (sum === point) {
       // Win
-      outComeDisplay.innerText = "You Rolled the Point! Winning Roll!"
-      resetPoint()
+      outComeDisplay.innerText = "You Rolled the Point! Winning Roll!";
+      resetPoint();
   } else if (sum === 7) {
       // Lose
-      outComeDisplay.innerText = "Losing Roll"
-      resetPoint()
+      outComeDisplay.innerText = "Losing Roll";
+      resetPoint();
   } else {
       // Continue rolling
-      outComeDisplay.innerText = `Roll again to hit ${point}`
+      outComeDisplay.innerText = `Roll again to hit ${point}`;
   }
 }
 
-
-
-
-
-
-
 function resetPoint() {
-  pointEstablished = false
-  point = null
+  pointEstablished = false;
+  point = null;
 }
