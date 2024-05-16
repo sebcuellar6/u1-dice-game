@@ -46,23 +46,30 @@ const diceImages = [
 const crapsBetInput = document.querySelector("#crapsBet")
 const forBet = document.querySelector("#for")
 const againstBet = document.querySelector("#against")
-const bettingBox2 = document.querySelector("#bettingBox2")
+
 const wins3 = document.querySelector("#wins3")
 const losses3 = document.querySelector("#losses3")
 const wins4 = document.querySelector("#wins4")
 const losses4 = document.querySelector("#losses4")
+const bettingBox2 = document.querySelector("#bettingBox2")
+const bet102 = document.querySelector("#bet102")
+const bet202 = document.querySelector("#bet202")
+const bet302 = document.querySelector("#bet302")
+const innerPot2 = document.querySelector("#innerPot2")
+const betPot2 = document.querySelector("#betPot2")
 //////////////////////////V[ARIABLES////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 let rollOccurred = false
 bettingBox.style.display = "none"
 let clickCount = 0
+let currentPlayer = 1
 ///////////////////////FUNCTIONS////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
 //function that creates a random number between 1-6
 function rollDice() {
-num = Math.floor(Math.random() * 6) + 1;
+num = Math.floor(Math.random() * 6) + 1
 return num
 }
 //create a function that checks whose number is higher
@@ -178,21 +185,29 @@ bet30.disabled = false
 rollOccurred = true
 }else if (currentMode === Modes.PASS_LINE) {
   // Logic for Pass Line mode
-  let dice1Outcome = rollDice();
-  let dice2Outcome = rollDice();
+  let dice1Outcome = rollDice()
+  let dice2Outcome = rollDice()
   dice1.src = diceImages[dice1Outcome - 1]
    dice2.src = diceImages[dice2Outcome - 1]
    
    diceImage1.src = diceImages[dice1Outcome - 1]  
    diceImage2.src = diceImages[dice2Outcome - 1]
+   console.log(currentPlayer)
   // Check if it's the first roll or subsequent rolls
   if (!pointEstablished) {
-      handleFirstRoll(dice1Outcome, dice2Outcome);
+      handleFirstRoll(dice1Outcome, dice2Outcome)
+      
+      console.log(currentPlayer)
   } else {
-      handleSubsequentRoll(dice1Outcome, dice2Outcome);
+      handleSubsequentRoll(dice1Outcome, dice2Outcome)
+      
+      console.log(currentPlayer)
   }
+bet10.disabled = false
+bet20.disabled = false
+bet30.disabled = false
 }
-});
+})
 
 //Make two buttons and add an event listener that takes the text from the input bars and assigns the name entered to the Player 1, and Player 2
 
@@ -314,12 +329,12 @@ currentMode =  Modes.HIGH_NUMBER
 
 //make a function that will toggle between the two different modes
 
-
+bettingBox2.style.display = "none"
 function toggleModePassLine() {
   if(currentMode === Modes.HIGH_NUMBER) {
-    currentMode = Modes.PASS_LINE
-bettingBox.style.display = "none"
-bettingBox2.style.display = "inline"
+currentMode = Modes.PASS_LINE
+
+bettingBox.style.display = "inline"
 wins3.style.display = "none"
 wins4.style.display = "none"
 losses3.style.display = "none"
@@ -337,7 +352,7 @@ function toggleModeHighNumber() {
 currentMode = Modes.HIGH_NUMBER
 let turn = null
 bettingBox.style.display = "inline"
-bettingBox2.style.display = "block"
+
 
 
 console.log(currentMode)
@@ -357,42 +372,136 @@ console.log(currentMode)
 passLine.addEventListener('click', toggleModePassLine)
 highNumber.addEventListener('click', toggleModeHighNumber)
 
-let pointEstablished = false;
-let point = null;
+let pointEstablished = false
+let point = null
 
 function handleFirstRoll(outcome1, outcome2) {
-    let sum = outcome1 + outcome2;
+    let sum = outcome1 + outcome2
     if (sum === 7 || sum === 11) {
-        // Win
-        outComeDisplay.innerText = "Winning First Roll!";
+      awardPotWinner()
+      
+      switchTurns()
+        outComeDisplay.innerText = "Winning First Roll!"
     } else if (sum === 2 || sum === 3 || sum === 12) {
-        // Lose
-        outComeDisplay.innerText = "Losing First Roll";
+        awardPotLoser()
+        
+          switchTurns()
+        
+        outComeDisplay.innerText = "Losing First Roll"
     } else {
         // Establish point
-        pointEstablished = true;
-        point = sum;
-        outComeDisplay.innerText = `Point established: ${point}`;
+        pointEstablished = true
+        point = sum
+        outComeDisplay.innerText = `Point established: ${point}`
     }
 }
 
 function handleSubsequentRoll(outcome1, outcome2) {
-  let sum = outcome1 + outcome2;
+  let sum = outcome1 + outcome2
   if (sum === point) {
       // Win
-      outComeDisplay.innerText = "You Rolled the Point! Winning Roll!";
-      resetPoint();
+      outComeDisplay.innerText = "You Rolled the Point! Winning Roll!"
+      resetPoint()
+      awardPotWinner()
+      
+      switchTurns()
   } else if (sum === 7) {
       // Lose
-      outComeDisplay.innerText = "Losing Roll";
-      resetPoint();
+      outComeDisplay.innerText = "Losing Roll"
+      resetPoint()
+      awardPotLoser()
+      
+      switchTurns()
   } else {
       // Continue rolling
-      outComeDisplay.innerText = `Roll again to hit ${point}`;
+      outComeDisplay.innerText = `Roll again to hit ${point}`
   }
 }
 
 function resetPoint() {
-  pointEstablished = false;
-  point = null;
+  pointEstablished = false
+  point = null
 }
+
+
+
+  function switchTurns() {
+    currentPlayer = (currentPlayer === 1) ? 2 : 1
+  }
+/*
+  function awardPot() {
+    let currentMoney1 = parseInt(innerMoney1.innerText)
+    let currentMoney2 = parseInt(innerMoney2.innerText)
+    let currentPot = parseInt(innerPot.innerText)
+
+    if (currentMoney1 >= 0 && currentMoney2 >= 0 && currentPot > 0) {
+        if (currentMode === Modes.PASS_LINE && currentPlayer === 1) {
+            if (pointEstablished) {
+                // Player who established the point wins the pot
+                innerMoney1.innerText = currentMoney1 + currentPot
+                innerPot.innerText = 0 // Clear the pot
+            } else {
+                // Player who won the first roll wins the pot
+                innerMoney1.innerText = currentMoney1 + currentPot
+                innerPot.innerText = 0 // Clear the pot
+            }
+        } else if (currentMode === Modes.PASS_LINE && currentPlayer === 2) {
+            if (pointEstablished) {
+                // Player who established the point wins the pot
+                innerMoney1.innerText = currentMoney1 + currentPot
+                innerPot.innerText = 0 // Clear the pot
+            } else {
+                // Player 2 wins the pot in case of a losing roll
+                innerMoney2.innerText = currentMoney2 + currentPot
+                innerPot.innerText = 0 // Clear the pot
+            }
+        }else if(pointEstablished) {
+          // Player who established the point wins the pot
+          innerMoney2.innerText = currentMoney2 + currentPot
+          innerPot.innerText = 0 // Clear the pot
+      } else {
+          // Player who won the first roll wins the pot
+          innerMoney2.innerText = currentMoney2 + currentPot
+          innerPot.innerText = 0 // Clear the pot
+      }
+  } else if (currentMode === Modes.PASS_LINE) {
+      if (pointEstablished) {
+          // Player who established the point wins the pot
+          innerMoney2.innerText = currentMoney2 + currentPot
+          innerPot.innerText = 0 // Clear the pot
+      } else {
+          // Player 2 wins the pot in case of a losing roll
+          innerMoney1.innerText = currentMoney1 + currentPot
+          innerPot.innerText = 0 // Clear the pot
+      }
+    }
+}
+*/
+function awardPotWinner() {
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+  
+  if (currentPlayer === 1) {
+ innerMoney1.innerText = currentMoney1 + currentPot
+ innerPot.innerText = 0
+  }else if(currentPlayer === 2) {
+    innerMoney2.innerText = currentMoney2 + currentPot
+    innerPot.innerText = 0
+  }
+}
+
+function awardPotLoser() {
+  let currentMoney1 = parseInt(innerMoney1.innerText)
+  let currentMoney2 = parseInt(innerMoney2.innerText)
+  let currentPot = parseInt(innerPot.innerText)
+  
+  if (currentPlayer === 2) {
+ innerMoney1.innerText = currentMoney1 + currentPot
+ innerPot.innerText = 0
+  }else if(currentPlayer === 1) {
+    innerMoney2.innerText = currentMoney2 + currentPot
+    innerPot.innerText = 0
+  }
+}
+
