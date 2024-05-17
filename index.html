@@ -9,37 +9,52 @@
 </head>
 <body>
     <header>
-        <h1 id="title">JavaScript Dice Game</h1>
-        <h3 id="outcomeDisplay">Roll the Dice!</h3>
+        <h1 id="title">Dice Game</h1>
+        
+        <h4>To start pick which game you would like to play and the amount of money you would like to start with and you will be given instruction on the game rules</h4>
     </header>
-    <div id="pointDisplay">
-        <h3>Point:</h3>
-        <p id="point"></p>
+    
     </div>
+    <div id="names">
         <div id="name1">
-            <label for="name">Name:</label>
+            <label for="name">Enter Name:</label>
             
             <input type="text" id="inputName1" name="name" required minlength="1" maxlength="12" size="10" />
             <input type="button" id="name1Btn" value="Enter">
         </div>
         
         <div id="name2">
-            <label for="name">Name:</label>
+            <label for="name">Enter Name:</label>
             <input type="text" id="inputName2" name="name" required minlength="1" maxlength="12" size="10" />
             <input type="button" id="name2Btn" value="Enter">
         </div>
-
-        
+    </div>
+<div id="instructions">
+    <h3>High Number</h3>
+    <ul>
+        <li><p id="hNumber">In high number place a bet and whoever rolls the higher number wins the pot.</p>
+        </li>
+    </ul>
+        <p id="craps">
+            <h3>Craps</h3>
+            <ul>
+                <li>In Craps if you roll either a 7 or an 11 on the first roll you win.</li>
+                 <li>If you roll a 2, 3, or 12 on the first roll you lose.</li>
+                 <li>If you roll any other number besides that, the number you rolled becomes the "point" and you must roll that number again before rolling a 7.</li></ul>
+                 </p>
+    </div>
         
     
 
     <nav id="nav">
         <button id="highNumber">High Number</button>
-        <button id="passLine">Pass Line</button>
+        
+        <button id="passLine">Craps</button>
+       
     </nav>
-
+    <h3 id="outcomeDisplay">Roll the Dice!</h3>
     <div class="tallyBox" id="tallyBox1">
-        <h4 id="first">P1</h4>
+        <h4 id="first">Player 1</h4>
         <span class="money" id="money1">Money:<p class ="inner"id="inner1"></p></span>
         <span id="wins3" class="tallyItem">Wins: <span id="wins1">0</span></span>
         <span id="losses3" class="tallyItem">Losses: <span id="losses1">0</span>
@@ -59,24 +74,17 @@
             <button id="bet30">$30</button>
             <span id="betPot">Pot:</span>
             <span id="innerPot">0</span>
-            
+            <span id="turnBox"></span>
 </div>
 
-<div id="bettingBox2">
-    <h3 id="betTitle2">Betting</h3>
-    <label for="betAmount2">Bet Amount</label>
-            <button id="bet102">$10</button>
-            <button id="bet202">$20</button>
-            <button id="bet302">$30</button>
-            <span id="betPot2">Pot:</span>
-            <span id="innerPot2">0</span>
+
             
 </div>
 
 
 </div>
     <div class="tallyBox" id="tallyBox2">
-        <h4 id="second">P2</h4>
+        <h4 id="second">Player 2</h4>
         <span class="money" id="money2">Money:<p class ="inner"id="inner2"></p></span>
         <span id="wins4" class="tallyItem">Wins: <span id="wins2">0</span></span>
         <span id="losses4" class="tallyItem">Losses: <span id="losses2">0</span>

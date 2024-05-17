@@ -51,7 +51,7 @@ const wins3 = document.querySelector("#wins3")
 const losses3 = document.querySelector("#losses3")
 const wins4 = document.querySelector("#wins4")
 const losses4 = document.querySelector("#losses4")
-const bettingBox2 = document.querySelector("#bettingBox2")
+
 const bet102 = document.querySelector("#bet102")
 const bet202 = document.querySelector("#bet202")
 const bet302 = document.querySelector("#bet302")
@@ -329,7 +329,7 @@ currentMode =  Modes.HIGH_NUMBER
 
 //make a function that will toggle between the two different modes
 
-bettingBox2.style.display = "none"
+
 function toggleModePassLine() {
   if(currentMode === Modes.HIGH_NUMBER) {
 currentMode = Modes.PASS_LINE
@@ -377,6 +377,7 @@ let point = null
 
 function handleFirstRoll(outcome1, outcome2) {
     let sum = outcome1 + outcome2
+    tellTurn()
     if (sum === 7 || sum === 11) {
       awardPotWinner()
       
@@ -398,6 +399,7 @@ function handleFirstRoll(outcome1, outcome2) {
 
 function handleSubsequentRoll(outcome1, outcome2) {
   let sum = outcome1 + outcome2
+  tellTurn()
   if (sum === point) {
       // Win
       outComeDisplay.innerText = "You Rolled the Point! Winning Roll!"
@@ -427,6 +429,7 @@ function resetPoint() {
 
   function switchTurns() {
     currentPlayer = (currentPlayer === 1) ? 2 : 1
+    tellTurn()
   }
 /*
   function awardPot() {
@@ -505,3 +508,18 @@ function awardPotLoser() {
   }
 }
 
+function tellTurn() {
+  let name1 = nameBox1.innerText
+  let name2 = nameBox2.innerText
+  
+  
+  nameBox1.style.color = "black"
+  nameBox2.style.color = "black"
+
+  
+  if(currentPlayer === 1) {
+    nameBox1.style.color = "blue"
+  } else if(currentPlayer === 2) {
+    nameBox2.style.color = "blue"
+  }
+}

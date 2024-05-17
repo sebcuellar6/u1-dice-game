@@ -1,104 +1,178 @@
-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    place-items: center; /* Ensure the body takes up the full height of the viewport */
-    background-color: rgb(103, 163, 224);
+
+body, h1, h3, h4, p, input, button, div, span, label {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1c7245ac;
+    color: #271396;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+
+}
+
 
 header {
- grid-row: 1 / 2;
- grid-column: 3 / 5;
- text-align: center;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-#name1 {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    text-align: center;
-    background-color: rgb(69, 70, 131);
-    color: rgb(150, 145, 227);
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
 }
 
-#name2 {
-    grid-column: 5 / 6;
-    grid-row: 2 / 3;
-    text-align: center;
-    background-color: rgb(69, 70, 131);
-    color: rgb(150, 145, 227);
+header h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
 }
 
-#outcomeDisplay {
-    text-align: center;
+header h4 {
+    font-size: 1em;
+    margin-bottom: 20px;
+    max-width: 600px;
 }
+
+/* Point display styling */
+#pointDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#pointDisplay h3 {
+    margin-right: 10px;
+}
+
+
+#names {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#name1, #name2 {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+#name1 label, #name2 label {
+    margin-right: 10px;
+}
+
+
+#instructions {
+    max-width: 600px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#instructions p, #instructions ul {
+    margin-bottom: 10px;
+}
+
+#instructions ul {
+    padding-left: 20px;
+}
+
+
+#nav {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#nav button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* Tally box styling */
+.tallyBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    background-color: #fff;
+}
+
+.tallyBox h4 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.tallyItem {
+    margin: 5px 0;
+}
+
 
 #playerBankDiv {
-    grid-row: 4 / 4;
-    grid-column: 3 / 5;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    background-color: #fff;
 }
 
-#tallyBox1 {
-    grid-row: 3 / 4;
-    grid-column: 1 / 3;
-    text-align: center;
+#playerBankDiv label {
+    margin-bottom: 10px;
 }
 
-#tallyBox2 {
-    grid-row: 3 / 4;
-    grid-column: 5 / 7;
-    text-align: center;
+
+#bettingBox1, #bettingBox2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    background-color: #fff;
 }
+
+#bettingBox1 h3, #bettingBox2 h3 {
+    margin-bottom: 10px;
+}
+
+.dice {
+    margin: 10px;
+}
+
+.dice img {
+    width: 100px;
+    height: 100px;
+}
+
 
 #rollButton {
-    grid-column: -5 / -3;
-    grid-row: 7 / 8;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-#roll {
-    background-color: red;
-    border: 2px solid red;
-
-}
-#diceImage1, #dice1 {
-    grid-row: 6 / 7;
-    grid-column: 3 / 4;
-    width: 100px;
-}
-
-#diceImage2, #dice2 {
-    grid-row: 6 / 6;
-    grid-column: 4 / 5;
-    width: 100px;
-}
-#diceContainer {
-    grid-row: 3 / 3;
-    grid-column: 2 / 2;
-}
-
-footer {
-    grid-row: 7 / 8;
-    grid-column: -5 / -3;
-}
-
-#bettingBox1 {
-    grid-row: 3 / 4;
-    grid-column: 3 / 5;
-}
-
-#bettingBox2 {
-    grid-row: 3 / 4;
-    grid-column: 3 / 5;
-}
-
-nav {
-    grid-row: 2 / 3;
-    grid-column: 3 / 5;
-    
-}
-
-#passLine, #highNumber {
-    background-color: rgb(85, 115, 180);
-    border: 2px solid blue;
-    border-radius: 18%;
+#rollButton input {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor
 }
